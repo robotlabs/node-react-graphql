@@ -2,27 +2,24 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 
-const GET_CURRENT_USER = gql`
+const GET_MESSAGE = gql`
   {
-    viewer {
-      login
-      name
-    }
+    message
   }
 `;
 
 const Profile = () => (
-  <Query query={GET_CURRENT_USER}>
+  <Query query={GET_MESSAGE}>
     {({ data, loading }) => {
-      const { viewer } = data;
-      console.log('viewver ', viewer);
-      if (loading || !viewer) {
-        return <div>Loading ...</div>;
+      const { message } = data;
+      console.log(':: >>message ', message);
+      if (loading || !message) {
+        console.log('---');
+        return (<div>Loading ...</div>);
       }
-
       return (
         <div>
-          {viewer.name} {viewer.login}
+          {message}
         </div>
       );
     }}

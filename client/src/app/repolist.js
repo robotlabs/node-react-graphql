@@ -45,7 +45,6 @@ const Repolist = () => (
       }
 
       let test = viewer.repositories.edges.map(({ node }) => {
-        console.log(':: node ', node);
         return (
           <div key={node.id} className="RepositoryItem">
             <div>{node.name}</div>
