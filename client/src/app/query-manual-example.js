@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 
-import gql from 'graphql-tag';
 import { ApolloConsumer } from "react-apollo";
+
+import {GET_ALL} from './queries';
 
 class QueryManualExample extends Component {
   state = { messageTest: 'loading'};
@@ -9,20 +10,6 @@ class QueryManualExample extends Component {
     this.fetchGraphQlData();
   }
   async fetchGraphQlData() {
-    const GET_MESSAGE = gql`
-      {
-        message
-      }
-    `;
-    const GET_ALL = gql`
-      {
-        a1
-        message
-        dataNested {
-          name
-        }
-      }
-    `;
     const { data } = await this.client.query({
       query: GET_ALL
     });

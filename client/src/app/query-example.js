@@ -1,24 +1,7 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 
-const GET_MESSAGE = gql`
-  {
-    message
-  }
-`;
-const GET_DATA = gql`
-  {
-    a1
-    a2
-    dataNested {
-      name
-      nestedList {
-        name
-      }
-    }
-  }
-`;
+import {GET_DATA} from './queries';
 
 const Profile = () => (
   <Query query={GET_DATA}>

@@ -7,16 +7,6 @@ var { buildSchema } = require('graphql');
 
 // GraphQL schema
 var schema = buildSchema(`
-    type Channel {
-        id: ID!                # "!" denotes a required field
-        name: String
-    }
-    type Queryx {
-        message: String,
-        passera: String,
-        channels: [Channel]
-    }
-
     type dataNestedObject {
         name: String
         nestedList: [nestedFinal]
