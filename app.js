@@ -1,25 +1,89 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-var bodyParser = require('body-parser');
 
 var express_graphql = require('express-graphql');
 var { buildSchema } = require('graphql');
 
 // GraphQL schema
 var schema = buildSchema(`
-    type Query {
-        message: String
+    type Channel {
+        id: ID!                # "!" denotes a required field
+        name: String
     }
+    type Queryx {
+        message: String,
+        passera: String,
+        channels: [Channel]
+    }
+
+    type dataNestedObject {
+        name: String
+        nestedList: [nestedFinal]
+    }
+    type nestedFinal {
+        name: String
+    }
+    type Query {
+        a1: String,
+        a2: String,
+        message: String
+        dataNested: [dataNestedObject]
+    }
+    
 `);
 // Root resolver
 var root = {
-    message: () => 'GQL: Hello World!'
+    message: () => 'GQL: Hello World!',
+    passera: () => 'HI I AM PASSERA',
+    channels: () => [
+        {
+            id: 32,
+            name: 'Paolo'
+        },{
+            id: 43,
+            name: 'xx'
+        }],
+    a1: () => 'yeppa. i am from graphQL',
+    a2: () => {
+        if (Math.random() < 0.5) return '<'
+        return '>'
+    },
+    dataNested: () => [
+        {
+            name: 'AA1',
+            nestedList: [
+                {
+                    name: 'cc1'
+                },
+                {
+                    name: 'cc2'
+                }
+            ]
+        },
+        {
+            name: 'AA2',
+            nestedList: [
+                {
+                    name: 'dd1'
+                },
+                {
+                    name: 'dd2'
+                },
+                {
+                    name: 'dd3'
+                }
+            ]
+        }
+    ]
 };
 
+//** standard REST api */
 app.get('/api/hello', (req, res) => {
     res.send({ express: 'Hi, Ciao bella: ' + Math.floor(Math.random() * 100) });
 });
+
+//** graphQL api */
 app.use('/graphql', express_graphql({
     schema: schema,
     rootValue: root,
